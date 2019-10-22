@@ -8,6 +8,7 @@ class Ship {
   boolean right;
   boolean up;
   boolean down;
+  boolean shoot;
   //int Bullets = 15;
 
 
@@ -20,6 +21,7 @@ class Ship {
     right=false;
     up=false;
     down=false;
+    shoot=false;
   }
   //Function (method) for ship display and area of movement
   void display() {
@@ -59,9 +61,11 @@ class Ship {
   }
   void Shoot() {
     if (keyPressed&&key==' ') {
+      shoot=true;
+      pBullet = new ArrayList<Bullet>();
       pBullet.add(new Bullet());
-      {
-      }
+    } else {
+      shoot=false;
     }
   }
 }
