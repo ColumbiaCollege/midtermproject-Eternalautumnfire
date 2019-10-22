@@ -4,12 +4,14 @@ class Enemy {
   float yPos;
   boolean eleft;
   boolean eright;
+  boolean shoot;
   Enemy() {
     c=(#FF0303);
     yPos=100;
     xPos=random(100, 800);
     eleft=false;
     eright=false;
+    shoot=false;
   }
   void eDisplay() {
     if (eleft) {
@@ -45,11 +47,16 @@ class Enemy {
     xPos += .018*(tXPos-xPos);
   }
   void eShoot() {
-int i=0;
-    while (i<1) {
-      i++;
-      eBullet.add(new eBullet());
-      break;
+    if (xPos==myShip.xPos+20|xPos==myShip.xPos-20) {
+      shoot=true;
+      {
+        if (shoot==true) {
+          eBullet = new ArrayList<eBullet>();
+          eBullet.add(new eBullet());
+        } else {
+          shoot=false;
+        }
+      }
     }
   }
 }
