@@ -2,7 +2,11 @@ class eBullet {
   float speed;
   //float tempSpeed = 45;
   Boolean Fired;
+  float intXPos;
+float intYPos;
   eBullet() {
+        intXPos=eShip.xPos;
+    intYPos=eShip.yPos;
   }
   void bulletFiredE() { 
     fill(#FFCD00);
