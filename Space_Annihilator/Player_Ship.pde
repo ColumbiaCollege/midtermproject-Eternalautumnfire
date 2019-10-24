@@ -10,6 +10,7 @@ class Ship {
   boolean down;
   boolean death;
   boolean shoot;
+  float speed;
   //Constructor for the Ship that initalizes the data
   Ship() {
     c = color(255);
@@ -21,16 +22,17 @@ class Ship {
     down=false;
     death=false;
     shoot=false;
+    speed = 4*1.5;
   }
   //Function (method) for ship display and area of movement
   void display() {
     fill(c);
     stroke(c);
     if (left) {
-      xPos=xPos - 4;
+      xPos=xPos - speed;
     }
     if (right) {
-      xPos=xPos + 4;
+      xPos=xPos + speed;
     }
     if (up) {
       yPos=yPos - 3;
@@ -48,14 +50,14 @@ class Ship {
     if (yPos>500) {
       yPos=500;
     }
-    if (xPos>900) {
-      xPos=0;
+    if (xPos>850) {
+      xPos=850;
     }
     if (yPos<50) {
       yPos=50;
     }
-    if (xPos<0) {
-      xPos=900;
+    if (xPos<50) {
+      xPos=50;
     }
   }
   void Death() {
