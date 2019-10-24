@@ -27,10 +27,10 @@ class Ship {
     fill(c);
     stroke(c);
     if (left) {
-      xPos=xPos - 3;
+      xPos=xPos - 4;
     }
     if (right) {
-      xPos=xPos + 3;
+      xPos=xPos + 4;
     }
     if (up) {
       yPos=yPos - 3;
@@ -45,8 +45,8 @@ class Ship {
     vertex(xPos, yPos-40);
     endShape(CLOSE);
     loop();
-    if (yPos>600) {
-      yPos=600;
+    if (yPos>500) {
+      yPos=500;
     }
     if (xPos>900) {
       xPos=0;
