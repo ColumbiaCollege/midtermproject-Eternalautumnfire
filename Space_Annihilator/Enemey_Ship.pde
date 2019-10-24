@@ -13,7 +13,7 @@ class Enemy {
     exPos=random(100, 800);
     shoot=false;
     death=false;
-    speed = -1;
+    speed = -1.5;
   }
   void eDisplay() {
     fill(c);
@@ -42,7 +42,7 @@ class Enemy {
   void eMove(float tXPos) {
     eyPos = eyPos-speed;
     if (eyPos>myShip.yPos) {
-      exPos += .035*(tXPos-exPos);
+      exPos += .055*(tXPos-exPos);
     } 
     if (exPos==myShip.xPos+0.2) {
       exPos -= -3;
