@@ -8,20 +8,42 @@ ArrayList<Bullet> pBullet = new ArrayList<Bullet>();
 ArrayList<eBullet> eBullet = new ArrayList<eBullet>();
 int numberofstars = 45;
 Star[] Stars = new Star[numberofstars];
-
-
+Boolean SpentBullet(float bulletYpos) {
+  if (bulletYpos<0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+Boolean SpentEBullet(float bulletYpos) {
+  if (bulletYpos<0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+Boolean PlayerHit(float bulletXPos, float bulletYPos) {
+  if (bulletXPos==myShip.xPos&&bulletYPos==myShip.yPos) {
+    return true;
+  } else {
+    return false;
+  }
+}
+Boolean EnemyHit(float bulletXPos, float bulletYPos) {
+  if (bulletXPos==eShip.exPos&&bulletYPos==eShip.eyPos) {
+    return true;
+  } else {
+    return false;
+  }
+}
 //sets up window and initalizes object
 void setup() {
   size(900, 600);
   for (int i =0; i < numberofstars; i++) {
     Stars[i] = new Star();
   }
-  myShip=new Ship();
-  //for (int i=0; i<15; i++) {
-  //  pBullet.add(new Bullet());
-  //}
+  myShip = new Ship();
   eShip = new Enemy();
-  //pBullet = new Bullet();
 }
 
 
@@ -32,22 +54,38 @@ void draw() {
     Stars[i].StarDraw();
     Stars[i].StarMove();
   }
-  //myShip.move();
-  //myShip.keyPressed();
-  //myShip.keyReleased();
+  if (myShip.death==true) {
+    noLoop();
+  }
   myShip.display();
-  myShip.Shoot();
-  for (Bullet b : pBullet) {
-    pBullet.get(0);
-    {
-      b.bulletFiredP();
+  for (int i=0; i< pBullet.size(); i++) {
+    Bullet b=pBullet.get(i);
+    if (EnemyHit(b.xPos, b.yPos)) {
+      eBullet.remove(i);
     }
+    if (SpentBullet(b.yPos)) {
+      pBullet.remove(i);
+    }
+    b.Display();
+    b.Shot();
+  }
+  if (eShip.death==true) {
+    noLoop();
   }
   eShip.eDisplay();
   eShip.eMove(myShip.xPos);
   eShip.eShoot();
-  for ( eBullet e : eBullet) {
-    e.bulletFiredE();
+  //println(eShip.shoot);
+  for (int i=0; i< eBullet.size(); i++) {
+    eBullet e=eBullet.get(i);
+    if (PlayerHit(e.xPos, e.yPos)) {
+      eBullet.remove(i);
+    }
+    if (SpentEBullet(e.yPos)) {
+      eBullet.remove(i);
+    }
+    e.eDisplay();
+    e.eShot();
   }
 }
 
@@ -89,5 +127,8 @@ void keyReleased() {
   }
   if (key=='d') {
     myShip.right=false;
+  }
+  if (key==' ') {
+    pBullet.add(new Bullet());
   }
 }
