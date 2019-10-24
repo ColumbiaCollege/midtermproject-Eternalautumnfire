@@ -2,21 +2,29 @@ class eBullet {
   float speed;
   //float tempSpeed = 45;
   Boolean Fired;
-  float intXPos;
-float intYPos;
+  float yPos;
+  float xPos;
+  float velocity;
   eBullet() {
-        intXPos=eShip.xPos;
-    intYPos=eShip.yPos;
+    xPos=eShip.exPos;
+    yPos=eShip.eyPos;
+    speed= -15;
+    velocity = -2.5;
+    Fired=true;
   }
-  void bulletFiredE() { 
+  void eDisplay() {
     fill(#FFCD00);
     strokeWeight(1.2);
     stroke(#FFF7D8);
-    ellipse(eShip.xPos, speed, 6, 18);
-    Fired=false;
-    if (Fired=false);
-    {
-      speed= speed+20;
+    ellipse(xPos, yPos-45, 6, 18);
+  }
+  void eShot() {
+    if (Fired==true) {
+      yPos+=speed;
+      speed+=velocity;
+      loop();
+    } else {
+      Fired=false;
     }
   }
 }
