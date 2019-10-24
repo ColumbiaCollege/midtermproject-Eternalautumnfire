@@ -1,62 +1,80 @@
 class Enemy {
   color c;
-  float xPos;
-  float yPos;
-  boolean eleft;
-  boolean eright;
+  float exPos;
+  float eyPos;
   boolean shoot;
+  boolean death;
+  int f;
+  float speed;
+
   Enemy() {
     c=(#FF0303);
-    yPos=100;
-    xPos=random(100, 800);
-    eleft=false;
-    eright=false;
+    eyPos=500;
+    exPos=random(100, 800);
     shoot=false;
+    death=false;
+    speed = -1;
   }
   void eDisplay() {
-    if (eleft) {
-      xPos=xPos - 4;
-    }
-    if (eright) {
-      xPos=xPos + 4;
-    } 
     fill(c);
     stroke(c);
     beginShape(); 
-    vertex(xPos-10, yPos+10);
-    vertex(xPos, yPos+15);
-    vertex(xPos+10, yPos+10);
-    vertex(xPos, yPos+40);
+    vertex(exPos-10, eyPos-10);
+    vertex(exPos, eyPos-15);
+    vertex(exPos+10, eyPos-10);
+    vertex(exPos, eyPos-40);
     endShape(CLOSE);
     loop();
 
-    if (yPos>250) {
-      yPos=250;
+    if (eyPos>height) {
+      eyPos=0;
     }
-    if (xPos>800) {
-      xPos=800;
+    if (exPos>800) {
+      exPos=800;
     }
-    if (yPos<100) {
-      yPos=100;
-    }
-    if (xPos<100) {
-      xPos=100;
+    //if (eyPos<100) {
+    //  eyPos=100;
+    //}
+    if (exPos<100) {
+      exPos=100;
     }
   }
   void eMove(float tXPos) {
-    xPos += .018*(tXPos-xPos);
+    eyPos = eyPos-speed;
+    if (eyPos>myShip.yPos) {
+      exPos += .035*(tXPos-exPos);
+    } 
+    if (exPos==myShip.xPos+0.2) {
+      exPos -= -3;
+    } else {
+      if (exPos==myShip.xPos-0.2) {
+        exPos -= 3;
+      }
+      if (eyPos<myShip.yPos||exPos<50||exPos>850) {
+        exPos -= .025*(tXPos-exPos+25);
+      }
+    }
   }
   void eShoot() {
-    if (xPos==myShip.xPos+20|xPos==myShip.xPos-20) {
+    if (exPos<=myShip.xPos+50d&exPos>=myShip.xPos-50&eyPos>myShip.yPos+20) {
       shoot=true;
       {
         if (shoot==true) {
-          eBullet = new ArrayList<eBullet>();
+          //for (f = 0; f<0; f++) {
+          //  f=f%13;
+          //  if (f>0) {
           eBullet.add(new eBullet());
-        } else {
-          shoot=false;
         }
       }
+    }
+  }
+  //}
+  //}
+  void Death() {
+    if (EnemyHit(exPos, eyPos)==true) {
+      death = true;
+    } else { 
+      death = false;
     }
   }
 }
