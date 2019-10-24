@@ -8,19 +8,18 @@ class Ship {
   boolean right;
   boolean up;
   boolean down;
+  boolean death;
   boolean shoot;
-  //int Bullets = 15;
-
-
   //Constructor for the Ship that initalizes the data
   Ship() {
     c = color(255);
     xPos =450;
-    yPos=500;
+    yPos=350;
     left=false;
     right=false;
     up=false;
     down=false;
+    death=false;
     shoot=false;
   }
   //Function (method) for ship display and area of movement
@@ -46,26 +45,24 @@ class Ship {
     vertex(xPos, yPos-40);
     endShape(CLOSE);
     loop();
-    if (yPos>550) {
-      yPos=550;
+    if (yPos>600) {
+      yPos=600;
     }
-    if (xPos>800) {
-      xPos=800;
+    if (xPos>900) {
+      xPos=0;
     }
-    if (yPos<500) {
-      yPos=500;
+    if (yPos<50) {
+      yPos=50;
     }
-    if (xPos<100) {
-      xPos=100;
+    if (xPos<0) {
+      xPos=900;
     }
   }
-  void Shoot() {
-    if (keyPressed&&key==' ') {
-      shoot=true;
-      pBullet = new ArrayList<Bullet>();
-      pBullet.add(new Bullet());
-    } else {
-      shoot=false;
+  void Death() {
+    if (PlayerHit(xPos, yPos)==true) {
+      death = true;
+    } else { 
+      death = false;
     }
   }
 }
