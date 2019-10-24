@@ -49,6 +49,8 @@ void setup() {
 
 void draw() {
   background(0);
+  //println(eShip.chase);
+  //println(eShip.dodge);
   //calls methods the object uses
   for (int i=0; i<Stars.length; i++) {
     Stars[i].StarDraw();
