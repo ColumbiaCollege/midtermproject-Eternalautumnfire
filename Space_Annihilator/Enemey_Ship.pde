@@ -11,7 +11,7 @@ class Enemy {
   Enemy() {
     c=(#FF0303);
     eyPos=500;
-    exPos=random(100, 800);
+    exPos=random(100, 800)-myShip.xPos;
     shoot=false;
     death=false;
     speed=1.5;
@@ -73,27 +73,25 @@ class Enemy {
       }
     }
   }
-
-  void eShoot() {
-    if (exPos<=myShip.xPos+50d&exPos>=myShip.xPos-50&eyPos>myShip.yPos+20) {
-      shoot=true;
-      {
-        if (shoot==true) {
-          //for (f = 0; f<0; f++) {
-          //  f=f/7;
-          //  if (f==0) {
-          eBullet.add(new eBullet());
-        }
-      }
-    }
-  }
+  //void Death() {
+  //  if (EnemyHit(myShip.xPos, myShip.yPos)==true) {
+  //    death = true;
+  //  } else { 
+  //    death = false;
   //  }
   //}
-  void Death() {
-    if (EnemyHit(exPos, eyPos)==true) {
-      death = true;
-    } else { 
-      death = false;
+  void eShoot() {
+    if (exPos<=myShip.xPos+50d&exPos>=myShip.xPos-50&eyPos>myShip.yPos+20) {
+      RoF++;
+      if (RoF%13==0) {
+        shoot=true;
+      } else {
+        shoot=false;
+      }
+      if (shoot==true) {
+
+        eBullet.add(new eBullet());
+      }
     }
   }
 }
