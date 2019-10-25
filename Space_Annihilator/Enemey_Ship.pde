@@ -1,3 +1,6 @@
+/* Enemy Ship class with things the enemy can do.
+ i.e. the Enemy's color, position, checks for shooting or dying, etc.
+ */
 class Enemy {
   color c;
   float exPos;
@@ -8,6 +11,8 @@ class Enemy {
   float speed;
   boolean chase;
   boolean dodge;
+  
+  //The enemy object where the things it can do are initialized, and the enemy "Spawns" at a random spot
   Enemy() {
     c=(#FF0303);
     eyPos=500;
@@ -16,6 +21,8 @@ class Enemy {
     death=false;
     speed=1.5;
   }
+  
+  // What the enemy looks like and where it can move
   void eDisplay() {
     fill(c);
     stroke(c);
@@ -42,6 +49,7 @@ class Enemy {
       exPos=50;
     }
   }
+  // how the enemy moves depending on its position related to the player's position
   void eMove(float tXPos) {
     if (eShip.eyPos<myShip.yPos) {
       dodge=true;
@@ -73,13 +81,8 @@ class Enemy {
       }
     }
   }
-  //void Death() {
-  //  if (EnemyHit(myShip.xPos, myShip.yPos)==true) {
-  //    death = true;
-  //  } else { 
-  //    death = false;
-  //  }
-  //}
+
+  // How the enemy fires in relation to where it is and where the player is. Also utilizes Rate of Fire.
   void eShoot() {
     if (exPos<=myShip.xPos+50d&exPos>=myShip.xPos-50&eyPos>myShip.yPos+20) {
       RoF++;
@@ -89,7 +92,6 @@ class Enemy {
         shoot=false;
       }
       if (shoot==true) {
-
         eBullet.add(new eBullet());
       }
     }
