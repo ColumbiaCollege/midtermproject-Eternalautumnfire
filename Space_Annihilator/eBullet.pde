@@ -22,7 +22,7 @@ class eBullet {
     if (Fired==true) {
       yPos+=speed;
       speed+=velocity;
-      loop();
+
     } else {
       Fired=false;
     }
