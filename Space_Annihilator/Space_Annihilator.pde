@@ -4,6 +4,8 @@
 //Ship Object
 Ship myShip;
 Enemy eShip;
+boolean GameOver;
+int RoF;
 ArrayList<Bullet> pBullet = new ArrayList<Bullet>();
 ArrayList<eBullet> eBullet = new ArrayList<eBullet>();
 int numberofstars = 45;
@@ -23,14 +25,14 @@ Boolean SpentEBullet(float bulletYpos) {
   }
 }
 Boolean PlayerHit(float bulletXPos, float bulletYPos) {
-  if (bulletXPos==myShip.xPos&&bulletYPos==myShip.yPos) {
+  if (dist(bulletXPos, bulletYPos, myShip.xPos, myShip.yPos)<20) {
     return true;
   } else {
     return false;
   }
 }
-Boolean EnemyHit(float bulletXPos, float bulletYPos) {
-  if (bulletXPos==eShip.exPos&&bulletYPos==eShip.eyPos) {
+Boolean EnemyHit(float ebulletX, float ebulletY) {
+  if (dist(ebulletX, ebulletY, eShip.exPos, eShip.eyPos)<20) {
     return true;
   } else {
     return false;
@@ -49,8 +51,7 @@ void setup() {
 
 void draw() {
   background(0);
-  //println(eShip.chase);
-  //println(eShip.dodge);
+  println(myShip.death);
   //calls methods the object uses
   for (int i=0; i<Stars.length; i++) {
     Stars[i].StarDraw();
@@ -60,24 +61,37 @@ void draw() {
     noLoop();
   }
   myShip.display();
+
+  //myShip.Death();
+  eShip.eDisplay();
+  //eShip.Death();
+  eShip.eMove(myShip.xPos);
+  eShip.eShoot();
+  //println(eShip.shoot);
   for (int i=0; i< pBullet.size(); i++) {
     Bullet b=pBullet.get(i);
     if (EnemyHit(b.xPos, b.yPos)) {
-      eBullet.remove(i);
+      pBullet.remove(i);
     }
     if (SpentBullet(b.yPos)) {
       pBullet.remove(i);
     }
     b.Display();
     b.Shot();
+    if (EnemyHit(b.xPos, b.yPos)) {
+      GameOver=true;
+      if (GameOver==true) {
+        noLoop();
+        //redraw();
+        background(0);
+        textAlign(CENTER);
+        textSize(22);
+        text("You Win!", width/2, height/2);
+        textSize(18);
+        text("Click mouse to restart.", width/2, (height/2)+75);
+      }
+    }
   }
-  if (eShip.death==true) {
-    noLoop();
-  }
-  eShip.eDisplay();
-  eShip.eMove(myShip.xPos);
-  eShip.eShoot();
-  //println(eShip.shoot);
   for (int i=0; i< eBullet.size(); i++) {
     eBullet e=eBullet.get(i);
     if (PlayerHit(e.xPos, e.yPos)) {
@@ -87,9 +101,30 @@ void draw() {
       eBullet.remove(i);
     }
     e.eDisplay();
+    //timer++;
+    //if (RoF%7==0) {
+    //eShip.shoot=true;
+    //}
     e.eShot();
+    if (PlayerHit(e.xPos, e.yPos)) {
+      GameOver=true;
+      if (GameOver==true) {
+        noLoop();
+        //redraw();
+        background(0);
+        textAlign(CENTER);
+        textSize(22);
+        text("Game Over! \n You Lose!", width/2, height/2);
+        textSize(18);
+        text("Click mouse to restart.", width/2, (height/2)+75);
+      } else {
+        GameOver=false;
+      }
+    }
   }
 }
+
+
 
 void keyPressed() {
   if (key=='w') {
@@ -133,4 +168,9 @@ void keyReleased() {
   if (key==' ') {
     pBullet.add(new Bullet());
   }
+}
+void mouseClicked() {
+  redraw();
+  myShip = new Ship();
+  eShip = new Enemy();
 }
