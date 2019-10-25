@@ -60,11 +60,11 @@ class Ship {
       xPos=50;
     }
   }
-  void Death() {
-    if (PlayerHit(xPos, yPos)==true) {
-      death = true;
-    } else { 
-      death = false;
-    }
-  }
+  //void Death() {
+  //  if (PlayerHit()==true) {
+  //    death = true;
+  //  } else { 
+  //    death = false;
+  //  }
+  //}
 }
