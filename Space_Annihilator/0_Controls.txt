@@ -1,0 +1,7 @@
+Player Controls:
+
+w moves player up
+a moves player left
+s moves player down
+d moves player right
+Spacebar shoots bullets
