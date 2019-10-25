@@ -22,7 +22,7 @@ class Bullet {
     if (Fired==true) {
       yPos+=speed;
       speed+=velocity;
-      loop();
+      //loop();
     } else {
       Fired=false;
     }
